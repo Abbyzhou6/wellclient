@@ -1,0 +1,21 @@
+{
+  "name": "wellclient",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/wangduanduan/wellclient.git",
+  "author": "wangdd <wangdd@welljoint.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --config webpack.config.prod.js",
+    "dev": "webpack-dev-server --open --config webpack.config.dev.js"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.0",
+    "webpack-merge": "^4.1.1"
+  }
+}
