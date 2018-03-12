@@ -1,4 +1,4 @@
-/* global localStorage, alert, $, wellClient, Vue */
+/* global localStorage, alert, $, wellClient */
 (function () {
   if (typeof window.localStorage === 'object') {
     $('#well-code').val(localStorage.getItem('code') || '')
@@ -6,6 +6,9 @@
     $('#well-namespace').val(localStorage.getItem('namespace') || '')
     $('#well-deviceId').val(localStorage.getItem('deviceId') || '')
   }
+
+  wellClient.setConfig({useErrorAlert: true, autoAnswer: true})
+  wellClient.useConfig('AWS-HTTPS')
 })()
 
 $('#test-makeCall').click(function () {
@@ -83,30 +86,20 @@ wellClient.innerOn('wsDisconnected', function (res) {
 })
 
 wellClient.exports = function (event) {
-  var msg = JSON.stringify(event)
+  // 呼入时，显示随路数据
+  if (event.eventName === 'delivered' && event.userData && event.eventSrc === event.calledDevice) {
+    logToPannel(event.userData)
+  } else if (event.eventName === 'agentWorkingAfterCall') {
+    // acw时，设置座席状态为就绪
+    wellClient.setAgentMode('Ready')
+  }
+}
+
+function logToPannel (log) {
+  var msg = JSON.stringify(log)
   msg = new Date().toLocaleString() + '   ' + msg
   msg = '<p>' + msg + '</p>'
   $('#log').prepend(msg)
-}
-
-function GetCallData () {
-  var callId = $('#user-data').val()
-  if (!callId) {
-    return
-  }
-
-  wellClient.getCallData(callId)
-    .done(function (res) {
-      if (typeof res === 'object') {
-        alert(JSON.stringify(res))
-      }
-      if (typeof res === 'string') {
-        alert(res)
-      }
-    })
-    .fail(function (res) {
-      console.log('获取路数据失败')
-    })
 }
 
 function clearPageLog () {
