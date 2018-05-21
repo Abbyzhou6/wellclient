@@ -126,6 +126,16 @@ var wellClient = (function ($) {
       autoAnswer: true,
       logPrefix: 'uattpi.wellcloud.cc'
     },
+    'CMB-DEV': {
+      SDK: 'uatsdk.wellcloud.cc',
+      cstaPort: '',
+      eventPort: '',
+      TPI: 'uatsdk.wellcloud.cc/loginTrusted',
+      protocol: 'https://',
+      wsProtocol: 'wss://',
+      autoAnswer: true,
+      logPrefix: 'uattpi.wellcloud.cc'
+    },
     'OUR-DEV': {
       SDK: '172.16.200.152',
       cstaPort: ':58080',
@@ -2070,8 +2080,8 @@ var wellClient = (function ($) {
       env.isMakingCall = true;
       (function (env) {
         setTimeout(function () {
-            env.isMakingCall = false
-          }, 2000)
+          env.isMakingCall = false
+        }, 2000)
       })(env)
 
       var payload = {
