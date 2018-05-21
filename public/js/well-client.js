@@ -116,6 +116,16 @@ var wellClient = (function ($) {
       autoAnswer: true,
       logPrefix: '10.248.6.71:8080'
     },
+    'CMB-OFFICE': {
+      SDK: '99.248.1.118',
+      cstaPort: ':5080',
+      eventPort: ':5080',
+      TPI: '99.248.1.118:5080/api/security/loginTrusted',
+      protocol: 'http://',
+      wsProtocol: 'ws://',
+      autoAnswer: true,
+      logPrefix: '99.248.1.118:5088'
+    },
     'CMB-TEST': {
       SDK: 'uatsdk.wellcloud.cc',
       cstaPort: '',
