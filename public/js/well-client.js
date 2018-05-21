@@ -22,7 +22,7 @@ var wellClient = (function ($) {
   var userData = {}
 
   var Config = {
-    version: '3.9.16.prdfix',
+    version: '3.9.16.prdfix.1',
     ENV_NAME: 'CMB-PRO', // for different topic
 
     SDK: 'mbsdk.wellcloud.cc',
