@@ -356,8 +356,6 @@
     // 通话接通后，清空输入框
     this.clearPhoneNumber()
     wellClient.ctrl.record.main()
-   
- 
   }
 
   wellClient.ui.clearAllCalls = function () {
