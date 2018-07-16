@@ -330,6 +330,7 @@ wellClient.agentLogin({
 状态码 | 出现频率 | 含义 | 备注
 --- | --- | --- | ---
 401 | :bug: | 密码不匹配 |
+423 | :bug: | 座席状态不合法 | 一般是由于座席已经被删除，或者座席被禁用
 426 | :bug: | 获取AccessToken失败 |
 451 | :bug::bug::bug::bug::bug: | 分机未注册 | 分机并没有在注册到sip服务器
 452 | :bug:| 非法坐席工号 |
@@ -340,9 +341,10 @@ wellClient.agentLogin({
 457 | :bug: | 未授权分机 |
 458 | :bug: | 坐席已登出 |
 459 | :bug::bug::bug::bug::bug: | 分机已经被别的坐席登陆 | 可以从 res.responseJSON.agentId（例如：5001@test.cc） 获取这个分机被哪个座席登录了
-460 | :bug: | 分机忙碌 |
+460 | :bug: | 分机忙碌 | 一般是由于登录的分机正在通话中导致的
 461 | :bug: | 坐席登陆的个数已达最大数 |
 462 | :bug: | 预占坐席失败 |
+483 | :bug: | 任务未分配 |
 
 [⬆ 回到顶部](#1-wellclient文档目录)
 
@@ -391,7 +393,7 @@ wellClient.setAgentMode('Ready')
 ---|---|---|---|---
 phoneNumber | string | 是 |  | 被叫方号码
 options.prefix | string | 否 | | 号码前缀, 例如有的分机拨打外线是加上9
-options.originForDisplay | string | 否 | | 外显主叫号, 客户手机上看到的号码，这个最终还是由中继运营商决定, 并不能保证一定是设置的值
+options.originForDisplay | string | 否 | | 外显主叫号, 客户手机上看到的号码，这个最终还是由中继运营商决定, 并不能保证一定是设置的值。如果该值设置错误，将会导致呼出后立马挂断，俗称秒挂。
 options.destForDisplay | string | 否 | | 外显被叫号, WellPhone或者实体话机上显示的号码
 options.cpa | enumerate string | 否 | 0 | 启用外呼过程识别功能（1：启用，0：不启用），启用呼叫识别可以提高外呼效率
 
@@ -2154,6 +2156,7 @@ wellClient.downloadLog();
 
 1. 呼出的号码没有加前缀：有时候号码需要加上出局号才能外呼，所以首先先询问运营商，检查是否需要加出局号码
 2. 外呼的号码本身就不是正常的号码
+3. makeCall请求originForDisplay字段不符合中继设置
 
 建议直接使用分机拨号试试，而不是从软电话拨号，看看能否呼出。
 
